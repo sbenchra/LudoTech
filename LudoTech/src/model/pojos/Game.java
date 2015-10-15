@@ -8,7 +8,12 @@ import model.enums.GameCategory;
  *
  */
 public class Game {
-
+	
+	/**
+	 * L'identifiant du jeu
+	 */
+	private int idGame;
+	
 	/**
 	 * Le nom du jeu
 	 */
@@ -54,6 +59,22 @@ public class Game {
 		this.publishingYear = publishingYear;
 		this.nbPlayers = nbPlayers;
 	}
+		//ce constructeur ^^ est utilisable quand on connait pas l'ID
+	 
+	
+	public Game(int idGame, String name, String description, GameCategory category, String editor, String author,
+			int publishingYear, int nbPlayers) {
+		this.idGame = idGame;
+		this.name = name;
+		this.description = description;
+		this.category = category;
+		this.editor = editor;
+		this.author = author;
+		this.publishingYear = publishingYear;
+		this.nbPlayers = nbPlayers;
+	}
+	
+	
 
 	public String getName() {
 		return name;
@@ -109,6 +130,18 @@ public class Game {
 
 	public void setNbPlayers(int nbPlayers) {
 		this.nbPlayers = nbPlayers;
+	}
+
+
+
+	public int getIdGame() {
+		return idGame;
+	}
+
+
+
+	public void setIdGame(int idGame) {
+		this.idGame = idGame;
 	}
 
 }
