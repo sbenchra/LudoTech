@@ -4,51 +4,71 @@ import model.enums.GameCategory;
 
 /**
  * Représentation d'un jeu (conforme à la table Game)
+ * 
  * @author Théo Gauchoux
  *
  */
 public class Game {
-	
+
 	/**
 	 * L'identifiant du jeu
 	 */
-	private int idGame;
-	
+	private int gameID;
+
 	/**
 	 * Le nom du jeu
 	 */
 	private String name;
-	
+
 	/**
 	 * La description du jeu
 	 */
 	private String description;
-	
+
 	/**
 	 * La catégorie du jeu
 	 */
 	private GameCategory category;
-	
+
 	/**
 	 * L'éditeur du jeu (l'entreprise le vendant)
 	 */
 	private String editor;
-	
+
 	/**
 	 * L'auteur du jeu (la personne l'ayant créé)
 	 */
 	private String author;
-	
+
 	/**
 	 * Année d'édition du jeu
 	 */
 	private int publishingYear;
-	
+
 	/**
 	 * Nombre de joueurs recommandé pour ce jeu
 	 */
 	private int nbPlayers;
 
+	/**
+	 * Constructeur d'un nouveau jeu sans connaître son identifiant (utilisé
+	 * lorsque le jeu n'existe pas encore en BDD)
+	 * 
+	 * @param name
+	 *            Le nom du nouveau jeu
+	 * @param description
+	 *            La description du nouveau jeu
+	 * @param category
+	 *            La catégorie du nouveau jeu
+	 * @param editor
+	 *            L'éditeur du nouveau jeu
+	 * @param author
+	 *            L'auteur du nouveau jeu
+	 * @param publishingYear
+	 *            L'année d'édition du nouveau jeu
+	 * @param nbPlayers
+	 *            Le nombre de joueurs recommandé du nouveau jeu
+	 */
 	public Game(String name, String description, GameCategory category, String editor, String author,
 			int publishingYear, int nbPlayers) {
 		this.name = name;
@@ -59,12 +79,31 @@ public class Game {
 		this.publishingYear = publishingYear;
 		this.nbPlayers = nbPlayers;
 	}
-		//ce constructeur ^^ est utilisable quand on connait pas l'ID
-	 
-	
-	public Game(int idGame, String name, String description, GameCategory category, String editor, String author,
+
+	/**
+	 * Constructeur d'un jeu en connaissant son identifiant (utilisé lorsque le
+	 * jeu existe déjà en BDD)
+	 * 
+	 * @param gameID
+	 *            L'identifiant du jeu
+	 * @param name
+	 *            Le nom du jeu
+	 * @param description
+	 *            La description du jeu
+	 * @param category
+	 *            La catégorie du jeu
+	 * @param editor
+	 *            L'éditeur du jeu
+	 * @param author
+	 *            L'auteur du jeu
+	 * @param publishingYear
+	 *            L'année d'édition du jeu
+	 * @param nbPlayers
+	 *            Le nombre de joueurs recommandé du jeu
+	 */
+	public Game(int gameID, String name, String description, GameCategory category, String editor, String author,
 			int publishingYear, int nbPlayers) {
-		this.idGame = idGame;
+		this.gameID = gameID;
 		this.name = name;
 		this.description = description;
 		this.category = category;
@@ -73,8 +112,14 @@ public class Game {
 		this.publishingYear = publishingYear;
 		this.nbPlayers = nbPlayers;
 	}
-	
-	
+
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
 
 	public String getName() {
 		return name;
@@ -130,18 +175,6 @@ public class Game {
 
 	public void setNbPlayers(int nbPlayers) {
 		this.nbPlayers = nbPlayers;
-	}
-
-
-
-	public int getIdGame() {
-		return idGame;
-	}
-
-
-
-	public void setIdGame(int idGame) {
-		this.idGame = idGame;
 	}
 
 }
