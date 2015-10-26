@@ -1,7 +1,5 @@
 package model.pojos;
 
-import model.enums.GameCategory;
-
 /**
  * Représentation d'un jeu (conforme à la table Game)
  * 
@@ -26,95 +24,85 @@ public class Game {
 	private String description;
 
 	/**
-	 * La catégorie du jeu
+	 * Année d'édition du jeu
 	 */
-	private GameCategory category;
+	private int publishingYear;
+	
+	/**
+	 * Age minimum recommandé pour ce jeu
+	 */
+	private int minimumAge;
 
 	/**
-	 * L'éditeur du jeu (l'entreprise le vendant)
+	 * Nombre minimum de joueurs recommandé pour ce jeu
+	 */
+	private int minimumPlayers;
+	
+	/**
+	 * Nombre maximum de joueurs recommandé pour ce jeu
+	 */
+	private int maximumPlayers;
+	
+	/**
+	 * La catégorie du jeu
+	 */
+	private String category;
+
+	/**
+	 * L'éditeur du jeu
 	 */
 	private String editor;
 
 	/**
-	 * L'auteur du jeu (la personne l'ayant créé)
+	 * Construit et retourne un nouveau jeu avec un identifiant connu
+	 * @param gameID L'identifiant du jeu
+	 * @param name Le nom du jeu
+	 * @param description La description du jeu
+	 * @param publishingYear L'année d'édition
+	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
+	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
+	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
+	 * @param editor L'éditeur du jeu
 	 */
-	private String author;
-
-	/**
-	 * Année d'édition du jeu
-	 */
-	private int publishingYear;
-
-	/**
-	 * Nombre de joueurs recommandé pour ce jeu
-	 */
-	private int nbPlayers;
-
-	/**
-	 * Constructeur d'un nouveau jeu sans connaître son identifiant (utilisé
-	 * lorsque le jeu n'existe pas encore en BDD)
-	 * 
-	 * @param name
-	 *            Le nom du nouveau jeu
-	 * @param description
-	 *            La description du nouveau jeu
-	 * @param category
-	 *            La catégorie du nouveau jeu
-	 * @param editor
-	 *            L'éditeur du nouveau jeu
-	 * @param author
-	 *            L'auteur du nouveau jeu
-	 * @param publishingYear
-	 *            L'année d'édition du nouveau jeu
-	 * @param nbPlayers
-	 *            Le nombre de joueurs recommandé du nouveau jeu
-	 */
-	public Game(String name, String description, GameCategory category, String editor, String author,
-			int publishingYear, int nbPlayers) {
-		this.name = name;
-		this.description = description;
-		this.category = category;
-		this.editor = editor;
-		this.author = author;
-		this.publishingYear = publishingYear;
-		this.nbPlayers = nbPlayers;
-	}
-
-	/**
-	 * Constructeur d'un jeu en connaissant son identifiant (utilisé lorsque le
-	 * jeu existe déjà en BDD)
-	 * 
-	 * @param gameID
-	 *            L'identifiant du jeu
-	 * @param name
-	 *            Le nom du jeu
-	 * @param description
-	 *            La description du jeu
-	 * @param category
-	 *            La catégorie du jeu
-	 * @param editor
-	 *            L'éditeur du jeu
-	 * @param author
-	 *            L'auteur du jeu
-	 * @param publishingYear
-	 *            L'année d'édition du jeu
-	 * @param nbPlayers
-	 *            Le nombre de joueurs recommandé du jeu
-	 */
-	public Game(int gameID, String name, String description, GameCategory category, String editor, String author,
-			int publishingYear, int nbPlayers) {
+	public Game(int gameID, String name, String description, int publishingYear, int minimumAge, int minimumPlayers,
+			int maximumPlayers, String category, String editor) {
 		this.gameID = gameID;
 		this.name = name;
 		this.description = description;
+		this.publishingYear = publishingYear;
+		this.minimumAge = minimumAge;
+		this.minimumPlayers = minimumPlayers;
+		this.maximumPlayers = maximumPlayers;
 		this.category = category;
 		this.editor = editor;
-		this.author = author;
+	}
+
+	/**
+	 * Construit et retourne un nouveau jeu avec un identifiant inconnu
+	 * @param name Le nom du jeu
+	 * @param description La description du jeu
+	 * @param publishingYear L'année d'édition
+	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
+	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
+	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
+	 * @param editor L'éditeur du jeu
+	 */
+	public Game(String name, String description, int publishingYear, int minimumAge, int minimumPlayers,
+			int maximumPlayers, String category, String editor) {
+		this.name = name;
+		this.description = description;
 		this.publishingYear = publishingYear;
-		this.nbPlayers = nbPlayers;
+		this.minimumAge = minimumAge;
+		this.minimumPlayers = minimumPlayers;
+		this.maximumPlayers = maximumPlayers;
+		this.category = category;
+		this.editor = editor;
 	}
 
 	public int getGameID() {
-		return gameID;
+		return this.gameID;
 	}
 
 	public void setGameID(int gameID) {
@@ -122,7 +110,7 @@ public class Game {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -130,51 +118,59 @@ public class Game {
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public GameCategory getCategory() {
-		return category;
-	}
-
-	public void setCategory(GameCategory category) {
-		this.category = category;
-	}
-
-	public String getEditor() {
-		return editor;
-	}
-
-	public void setEditor(String editor) {
-		this.editor = editor;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
 	public int getPublishingYear() {
-		return publishingYear;
+		return this.publishingYear;
 	}
 
 	public void setPublishingYear(int publishingYear) {
 		this.publishingYear = publishingYear;
 	}
 
-	public int getNbPlayers() {
-		return nbPlayers;
+	public int getMinimumAge() {
+		return this.minimumAge;
 	}
 
-	public void setNbPlayers(int nbPlayers) {
-		this.nbPlayers = nbPlayers;
+	public void setMinimumAge(int minimumAge) {
+		this.minimumAge = minimumAge;
+	}
+
+	public int getMinimumPlayers() {
+		return this.minimumPlayers;
+	}
+
+	public void setMinimumPlayers(int minimumPlayers) {
+		this.minimumPlayers = minimumPlayers;
+	}
+
+	public int getMaximumPlayers() {
+		return this.maximumPlayers;
+	}
+
+	public void setMaximumPlayers(int maximumPlayers) {
+		this.maximumPlayers = maximumPlayers;
+	}
+
+	public String getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getEditor() {
+		return this.editor;
+	}
+
+	public void setEditor(String editor) {
+		this.editor = editor;
 	}
 
 }

@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.enums.GameCategory;
 import model.pojos.Game;
 import model.services.GameServices;
 
@@ -29,23 +28,21 @@ public class GameTests extends Tests {
 
 	@Test
 	public void testAddGames() {
-		Assert.assertNotNull(gameServices.addGame("TestAddGame1", "Salut je suis une description", GameCategory.CARTES,
-				"Marco", "Polo", 2015, 4));
-		Assert.assertNotNull(gameServices.addGame("TestAddGame2", "Avec une description", GameCategory.DES,
-				"Un éditeur", "Un auteur", 2014, 2));
+		Assert.assertNotNull(gameServices.addGame("TestAddGame1", "Salut, je suis une description", 2015, 12, 2, 4, "Cartes", "Marco"));
+		Assert.assertNotNull(gameServices.addGame("TestAddGame2", "Coucou, moi j'en suis une autre", 2011, 4, 1, 2, "Plateau", "Marco"));
 	}
 
 	@Test
 	public void testEditGames() {
 		// Ajout du jeu à modifier
-		Game editableGame = gameServices.addGame("TestEditGame", "Une description modifiable", GameCategory.PLATEAU,
-				"Polytech", "Montpellier", 2015, 3);
+		Game editableGame = gameServices.addGame("TestEditGame1", "Ancienne description", 2015, 8, 2, 6, "Dés", "Machin");
 		Assert.assertNotNull(editableGame);
-		
+
 		// Modification du jeu
 		Assert.assertNotNull(gameServices.editGame(editableGame.getGameID(), editableGame.getName(),
-				"Nouvelle description", editableGame.getCategory(), editableGame.getEditor(), editableGame.getAuthor(),
-				editableGame.getPublishingYear(), editableGame.getNbPlayers()));
+				"Nouvelle description", editableGame.getPublishingYear(), editableGame.getMinimumAge(),
+				editableGame.getMinimumPlayers(), editableGame.getMaximumPlayers(), editableGame.getCategory(),
+				editableGame.getEditor()));
 	}
 
 }

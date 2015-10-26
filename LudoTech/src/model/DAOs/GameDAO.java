@@ -21,33 +21,37 @@ public class GameDAO extends DAO {
 	 * 
 	 * @param game
 	 *            Le jeu à ajouter dans la base de données
+	 * @param gameCategoryID
+	 *            L'identifiant en base de données de la catégorie du jeu
+	 * @param gameEditorID
+	 *            L'identifiant en base de données de l'éditeur du jeu
 	 * @return true L'ajout du a été fait correctement
 	 * @return false Une exception est survenue, l'ajout s'est peut-être mal
 	 *         passé
 	 */
-	public boolean add(Game game) {
+	public boolean add(Game game, int gameCategoryID, int gameEditorID) {
 		try {
 			super.connect();
 
 			PreparedStatement psInsert = connection.prepareStatement(
 					"INSERT INTO " 
-						+ "Game(name, description, category, editor, author, publishing_year, nb_players) "
-						+ "values (?, ?, ?, ?, ?, ?, ?)",
-						new String[] { "GAME_ID" });
+						+ "Game(name, description, publishing_year, minimum_age, minimum_players, maximum_players, category_id, editor_id) "
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+						new String[] { "ID" });
 			psInsert.setString(1, game.getName());
 			psInsert.setString(2, game.getDescription());
-			psInsert.setString(3, game.getCategory().toString());
-			psInsert.setString(4, game.getEditor());
-			psInsert.setString(5, game.getAuthor());
-			psInsert.setInt(6, game.getPublishingYear());
-			psInsert.setInt(7, game.getNbPlayers());
+			psInsert.setInt(3, game.getPublishingYear());
+			psInsert.setInt(4, game.getMinimumAge());
+			psInsert.setInt(5, game.getMinimumPlayers());
+			psInsert.setInt(6, game.getMaximumPlayers());
+			psInsert.setInt(7, gameCategoryID);
+			psInsert.setInt(8, gameEditorID);
 
 			psInsert.executeUpdate();
 			
 			// Récupération de l'identifiant du jeu généré automatiquement par Derby
 			ResultSet idRS = psInsert.getGeneratedKeys();
-			if (idRS != null) {
-				idRS.next();
+			if (idRS != null && idRS.next()) {
 				game.setGameID(idRS.getInt(1));
 			} else {
 				throw new SQLException();
@@ -66,25 +70,30 @@ public class GameDAO extends DAO {
 	 * 
 	 * @param game
 	 *            Le jeu à modifier dans la base de données
+	 * @param gameCategoryID
+	 *            L'identifiant en base de données de la catégorie du jeu
+	 * @param gameEditorID
+	 *            L'identifiant en base de données de l'éditeur du jeu
 	 * @return true La modification a été faite correctement
 	 * @return false Une exception est survenue, la modification s'est peut-être mal passée
 	 */
-	public boolean edit(Game game) {
+	public boolean edit(Game game, int gameCategoryID, int gameEditorID) {
 		try {
 			super.connect();
 
 			PreparedStatement psEdit = connection.prepareStatement(
 					"UPDATE Game "
-						+ "SET name = ?, description = ?, category = ?, editor = ?, author = ?, publishing_year = ?, nb_players = ? "
-						+ "WHERE game_id = ?");
+						+ "SET name = ?, description = ?, publishing_year = ?, minimum_age = ?, minimum_players = ?, maximum_players = ?, category_id = ?, editor_id = ? "
+						+ "WHERE id = ?");
 			psEdit.setString(1, game.getName());
 			psEdit.setString(2, game.getDescription());
-			psEdit.setString(3, game.getCategory().toString());
-			psEdit.setString(4, game.getEditor());
-			psEdit.setString(5, game.getAuthor());
-			psEdit.setInt(6, game.getPublishingYear());
-			psEdit.setInt(7, game.getNbPlayers());
-			psEdit.setInt(8, game.getGameID());
+			psEdit.setInt(3, game.getPublishingYear());
+			psEdit.setInt(4, game.getMinimumAge());
+			psEdit.setInt(5, game.getMinimumPlayers());
+			psEdit.setInt(6, game.getMaximumPlayers());
+			psEdit.setInt(7, gameCategoryID);
+			psEdit.setInt(8, gameEditorID);
+			psEdit.setInt(9, game.getGameID());
 			
 			psEdit.executeUpdate();
 			psEdit.closeOnCompletion();
