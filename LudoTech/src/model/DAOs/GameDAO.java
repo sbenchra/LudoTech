@@ -105,5 +105,34 @@ public class GameDAO extends DAO {
 			return false;
 		}
 	}
+	
+	
+	/**
+	 * Supprime une ligne de la table Game dans la base de données en se servant de l'identifiant d'un jeu
+	 * 
+	 * @param game
+	 *            Le jeu à supprimer dans la base de données
+	 *
+	 * @return true La suppression a été faite correctement
+	 * @return false Une exception est survenue, la suppression s'est peut-être mal passée
+	 */
+	
+	public boolean remove(Game game) {
+		try {
+			PreparedStatement psInsert = connection.prepareStatement(
+					"REMOVE FROM "
+					+ "Game WHERE "
+					+ "id_game = ?");
+					psInsert.setString(1, game.getName());
+					psInsert.execute();
+					psInsert.closeOnCompletion();
+
+					super.disconnect();
+					return true;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return false;
+				}
+	}
 
 }

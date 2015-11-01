@@ -76,5 +76,24 @@ public class GameServices {
 		int editorID = this.gameEditorDAO.getID(editor);
 		return this.gameDAO.edit(game, categoryID, editorID) ? game : null;
 	}
+	
+	/**
+	 * Suppression d'un jeu existant
+	 * 
+	 * @param id L'identifiant du jeu
+	 * @param name Le nom du jeu
+	 * @param description La description du jeu
+	 * @param publishingYear L'année d'édition
+	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
+	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
+	 * @return Un objet de type null s'il le jeu a pu être supprimé de la base de
+	 *         données, sinon Game qui était en paramètre
+	 */
+	public Game removeGame(int id, String name, String description, int publishingYear, int minimumAge, int minimumPlayers, int maximumPlayers, String category, String editor) {
+		Game game = new Game(id, name, description, publishingYear, minimumAge, minimumPlayers, maximumPlayers, category, editor);
+		
+		return this.gameDAO.remove(game) ? null : game;
+	}
 
 }
