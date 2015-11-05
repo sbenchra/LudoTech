@@ -7,27 +7,27 @@ import java.sql.SQLException;
 import model.pojos.Game;
 
 /**
- * Classe manipulant des objets de type Game dans la base de données
+ * Classe manipulant des objets de type Game dans la base de donnï¿½es
  * 
- * @author Théo Gauchoux
+ * @author Thï¿½o Gauchoux
  *
  */
 public class GameDAO extends DAO {
 
 	/**
-	 * Ajoute une nouvelle ligne dans la table Game de la base de données, avec
-	 * les informations d'un jeu en utilisant la Génération automatique de
-	 * l'identifiant (clé primaire) par le pilote Derby
+	 * Ajoute une nouvelle ligne dans la table Game de la base de donnï¿½es, avec
+	 * les informations d'un jeu en utilisant la Gï¿½nï¿½ration automatique de
+	 * l'identifiant (clï¿½ primaire) par le pilote Derby
 	 * 
 	 * @param game
-	 *            Le jeu à ajouter dans la base de données
+	 *            Le jeu ï¿½ ajouter dans la base de donnï¿½es
 	 * @param gameCategoryID
-	 *            L'identifiant en base de données de la catégorie du jeu
+	 *            L'identifiant en base de donnï¿½es de la catï¿½gorie du jeu
 	 * @param gameEditorID
-	 *            L'identifiant en base de données de l'éditeur du jeu
-	 * @return true L'ajout du a été fait correctement
-	 * @return false Une exception est survenue, l'ajout s'est peut-être mal
-	 *         passé
+	 *            L'identifiant en base de donnï¿½es de l'ï¿½diteur du jeu
+	 * @return true L'ajout du a ï¿½tï¿½ fait correctement
+	 * @return false Une exception est survenue, l'ajout s'est peut-ï¿½tre mal
+	 *         passï¿½
 	 */
 	public boolean add(Game game, int gameCategoryID, int gameEditorID) {
 		try {
@@ -35,7 +35,7 @@ public class GameDAO extends DAO {
 
 			PreparedStatement psInsert = connection.prepareStatement(
 					"INSERT INTO " 
-						+ "Game(name, description, publishing_year, minimum_age, minimum_players, maximum_players, category_id, editor_id) "
+						+ "GAME(name, description, publishing_year, minimum_age, minimum_players, maximum_players, category_id, editor_id) "
 						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
 						new String[] { "ID" });
 			psInsert.setString(1, game.getName());
@@ -49,7 +49,7 @@ public class GameDAO extends DAO {
 
 			psInsert.executeUpdate();
 			
-			// Récupération de l'identifiant du jeu généré automatiquement par Derby
+			// Rï¿½cupï¿½ration de l'identifiant du jeu gï¿½nï¿½rï¿½ automatiquement par Derby
 			ResultSet idRS = psInsert.getGeneratedKeys();
 			if (idRS != null && idRS.next()) {
 				game.setGameID(idRS.getInt(1));
@@ -66,23 +66,23 @@ public class GameDAO extends DAO {
 	}
 
 	/**
-	 * Modifie les valeurs d'une ligne de la table Game dans la base de données en se servant de l'identifiant d'un jeu
+	 * Modifie les valeurs d'une ligne de la table Game dans la base de donnï¿½es en se servant de l'identifiant d'un jeu
 	 * 
 	 * @param game
-	 *            Le jeu à modifier dans la base de données
+	 *            Le jeu ï¿½ modifier dans la base de donnï¿½es
 	 * @param gameCategoryID
-	 *            L'identifiant en base de données de la catégorie du jeu
+	 *            L'identifiant en base de donnï¿½es de la catï¿½gorie du jeu
 	 * @param gameEditorID
-	 *            L'identifiant en base de données de l'éditeur du jeu
-	 * @return true La modification a été faite correctement
-	 * @return false Une exception est survenue, la modification s'est peut-être mal passée
+	 *            L'identifiant en base de donnï¿½es de l'ï¿½diteur du jeu
+	 * @return true La modification a ï¿½tï¿½ faite correctement
+	 * @return false Une exception est survenue, la modification s'est peut-ï¿½tre mal passï¿½e
 	 */
 	public boolean edit(Game game, int gameCategoryID, int gameEditorID) {
 		try {
 			super.connect();
 
 			PreparedStatement psEdit = connection.prepareStatement(
-					"UPDATE Game "
+					"UPDATE GAME "
 						+ "SET name = ?, description = ?, publishing_year = ?, minimum_age = ?, minimum_players = ?, maximum_players = ?, category_id = ?, editor_id = ? "
 						+ "WHERE id = ?");
 			psEdit.setString(1, game.getName());
@@ -108,13 +108,13 @@ public class GameDAO extends DAO {
 	
 	
 	/**
-	 * Supprime une ligne de la table Game dans la base de données en se servant de l'identifiant d'un jeu
+	 * Supprime une ligne de la table Game dans la base de donnï¿½es en se servant de l'identifiant d'un jeu
 	 * 
 	 * @param game
-	 *            Le jeu à supprimer dans la base de données
+	 *            Le jeu ï¿½ supprimer dans la base de donnï¿½es
 	 *
-	 * @return true La suppression a été faite correctement
-	 * @return false Une exception est survenue, la suppression s'est peut-être mal passée
+	 * @return true La suppression a ï¿½tï¿½ faite correctement
+	 * @return false Une exception est survenue, la suppression s'est peut-ï¿½tre mal passï¿½e
 	 */
 	
 	public boolean remove(Game game) {
