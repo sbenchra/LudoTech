@@ -9,14 +9,11 @@ import model.services.GameServices;
 
 /**
  * Tests sur la manipulation de jeux
- * 
- * @author Théo Gauchoux
- *
  */
 public class GameTests extends Tests {
 
 	/**
-	 * L'objet exposant les services liés aux jeux
+	 * L'objet exposant les services liÃ©s aux jeux
 	 */
 	private GameServices gameServices;
 
@@ -34,8 +31,8 @@ public class GameTests extends Tests {
 
 	@Test
 	public void testEditGames() {
-		// Ajout du jeu à modifier
-		Game editableGame = gameServices.addGame("TestEditGame1", "Ancienne description", 2015, 8, 2, 6, "Dés", "Machin");
+		// Ajout du jeu Ã  modifier
+		Game editableGame = gameServices.addGame("TestEditGame1", "Ancienne description", 2015, 8, 2, 6, "DÃ©s", "Machin");
 		Assert.assertNotNull(editableGame);
 
 		// Modification du jeu

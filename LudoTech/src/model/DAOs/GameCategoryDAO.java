@@ -5,38 +5,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Classe manipulant des objets de type GameCategory dans la base de données
+ * Classe manipulant des objets de type GameCategory dans la base de donnÃ©es
  *
  */
 public class GameCategoryDAO extends DAO {
 
 	/**
-	 * Cherche l'identifiant d'une catégorie de jeu (la créé si elle n'existe pas encore)
-	 * @param gameCategory Le nom de la catégorie de jeu
-	 * @return L'identifiant de la catégorie de jeu 
+	 * Cherche l'identifiant d'une catÃ©gorie de jeu (la crÃ©er si elle n'existe
+	 * pas encore)
+	 * 
+	 * @param gameCategory
+	 *            Le nom de la catÃ©gorie de jeu
+	 * @return L'identifiant de la catÃ©gorie de jeu
 	 */
 	public int getID(String gameCategory) {
-		
+
 		int idFound = -1;
-		
+
 		try {
 			super.connect();
 
-			PreparedStatement psSelect = connection.prepareStatement(
-					"SELECT ID FROM GAME_CATEGORY WHERE category = ?");
+			PreparedStatement psSelect = connection.prepareStatement("SELECT ID FROM GAME_CATEGORY WHERE category = ?");
 			psSelect.setString(1, gameCategory.toLowerCase());
 			psSelect.execute();
-			
+
 			ResultSet idRS = psSelect.getResultSet();
-			if (idRS != null && idRS.next()) { // L'identifiant a été trouvé
+			if (idRS != null && idRS.next()) { // L'identifiant a Ã©tÃ© trouvÃ©
 				idFound = idRS.getInt(1);
 			} else {
-				PreparedStatement psInsert = connection.prepareStatement(
-						"INSERT INTO GAME_CATEGORY(category) VALUES (?)", new String[] { "ID" });
+				PreparedStatement psInsert = connection
+						.prepareStatement("INSERT INTO GAME_CATEGORY(category) VALUES (?)", new String[] { "ID" });
 				psInsert.setString(1, gameCategory.toLowerCase());
 				psInsert.executeUpdate();
-				
-				// Récupération de l'identifiant généré automatiquement par Derby
+
+				// RÃ©cupÃ©ration de l'identifiant gÃ©nÃ©rÃ© automatiquement par Derby
 				idRS = psInsert.getGeneratedKeys();
 				if (idRS != null && idRS.next()) {
 					idFound = idRS.getInt(1);
@@ -44,7 +46,7 @@ public class GameCategoryDAO extends DAO {
 					throw new SQLException();
 				}
 			}
-			
+
 			super.disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();

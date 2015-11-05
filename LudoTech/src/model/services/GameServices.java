@@ -7,24 +7,21 @@ import model.pojos.Game;
 
 /**
  * Expose des services de traitement sur des jeux
- * 
- * @author Théo Gauchoux
- *
  */
 public class GameServices {
 
 	/**
-	 * Objet d'accès aux données de type Game
+	 * Objet d'accÃ©s aux donnÃ©es de type Game
 	 */
 	private final GameDAO gameDAO;
 	
 	/**
-	 * Objet d'accès aux données de type GameCategory
+	 * Objet d'accÃ©s aux donnÃ©es de type GameCategory
 	 */
 	private final GameCategoryDAO gameCategoryDAO;
 	
 	/**
-	 * Objet d'accès aux données de type GameEditor
+	 * Objet d'accÃ©s aux donnÃ©es de type GameEditor
 	 */
 	private final GameEditorDAO gameEditorDAO;
 
@@ -35,18 +32,17 @@ public class GameServices {
 	}
 
 	/**
-	 * Création et ajout en base de données d'un nouveau jeu
-	 * 
+	 * CrÃ©ation et ajout en base de donnÃ©es d'un nouveau jeu
 	 * @param name Le nom du jeu
 	 * @param description La description du jeu
-	 * @param publishingYear L'année d'édition
-	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param publishingYear L'annÃ©e d'Ã©dition
+	 * @param minimumAge L'age minimum recommandÃ© pour jouer
 	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
 	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
-	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
-	 * @param editor L'éditeur du jeu
-	 * @return Un objet de type Game s'il le jeu a pu être ajouté à la base de
-	 *         données, sinon Null
+	 * @param category La catÃ©gorie du jeu (jeu de cartes, jeu de dÃ©s)
+	 * @param editor L'Ã©diteur du jeu
+	 * @return Un objet de type Game s'il le jeu a pu Ãªtre ajoutÃ© Ã  la base de
+	 *         donnÃ©es, sinon Null
 	 */
 	public Game addGame(String name, String description, int publishingYear, int minimumAge, int minimumPlayers, int maximumPlayers, String category, String editor) {
 		Game game = new Game(name, description, publishingYear, minimumAge, minimumPlayers, maximumPlayers, category, editor);
@@ -61,14 +57,14 @@ public class GameServices {
 	 * @param id L'identifiant du jeu
 	 * @param name Le nom du jeu
 	 * @param description La description du jeu
-	 * @param publishingYear L'année d'édition
-	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param publishingYear L'annÃ©e d'Ã©dition
+	 * @param minimumAge L'age minimum recommandÃ© pour jouer
 	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
 	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
-	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
-	 * @param editor L'éditeur du jeu
-	 * @return Un objet de type Game s'il le jeu a pu être ajouté à la base de
-	 *         données, sinon Null
+	 * @param category La catÃ©gorie du jeu (jeu de cartes, jeu de dÃ©s)
+	 * @param editor L'Ã©diteur du jeu
+	 * @return Un objet de type Game s'il le jeu a pu Ãªtre modifiÃ© dans la base de
+	 *         donnÃ©es, sinon Null
 	 */
 	public Game editGame(int id, String name, String description, int publishingYear, int minimumAge, int minimumPlayers, int maximumPlayers, String category, String editor) {
 		Game game = new Game(id, name, description, publishingYear, minimumAge, minimumPlayers, maximumPlayers, category, editor);
@@ -83,12 +79,14 @@ public class GameServices {
 	 * @param id L'identifiant du jeu
 	 * @param name Le nom du jeu
 	 * @param description La description du jeu
-	 * @param publishingYear L'année d'édition
-	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param publishingYear L'annÃ©e d'Ã©dition
+	 * @param minimumAge L'age minimum recommandÃ© pour jouer
 	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
 	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
-	 * @return Un objet de type null s'il le jeu a pu être supprimé de la base de
-	 *         données, sinon Game qui était en paramètre
+	 * @param category La catÃ©gorie du jeu (jeu de cartes, jeu de dÃ©s)
+	 * @param editor L'Ã©diteur du jeu
+	 * @return Un objet de type null s'il le jeu a pu Ãªtre supprimÃ© de la base de
+	 *         donnÃ©es, sinon Game qui Ã©tait en paramÃªtre
 	 */
 	public Game removeGame(int id, String name, String description, int publishingYear, int minimumAge, int minimumPlayers, int maximumPlayers, String category, String editor) {
 		Game game = new Game(id, name, description, publishingYear, minimumAge, minimumPlayers, maximumPlayers, category, editor);

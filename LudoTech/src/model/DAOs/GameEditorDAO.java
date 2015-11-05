@@ -5,15 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Classe manipulant des objets de type GameEditor dans la base de données
- *
+ * Classe manipulant des objets de type GameEditor dans la base de donnÃ©es
  */
 public class GameEditorDAO extends DAO {
 
 	/**
-	 * Cherche l'identifiant d'un éditeur de jeu (le créé s'il n'existe pas encore)
-	 * @param gameEditor Le nom de l'éditeur de jeu
-	 * @return L'identifiant de l'éditeur de jeu 
+	 * Cherche l'identifiant d'un Ã©diteur de jeu (le crÃ©er s'il n'existe pas encore)
+	 * @param gameEditor Le nom de l'Ã©diteur de jeu
+	 * @return L'identifiant de l'Ã©diteur de jeu 
 	 */
 	public int getID(String gameEditor) {
 		
@@ -28,7 +27,7 @@ public class GameEditorDAO extends DAO {
 			psSelect.execute();
 			
 			ResultSet idRS = psSelect.getResultSet();
-			if (idRS != null && idRS.next()) { // L'identifiant a été trouvé
+			if (idRS != null && idRS.next()) { // L'identifiant a Ã©tÃ© trouvÃ©
 				idFound = idRS.getInt(1);
 			} else {
 				PreparedStatement psInsert = connection.prepareStatement(
@@ -36,7 +35,7 @@ public class GameEditorDAO extends DAO {
 				psInsert.setString(1, gameEditor.toLowerCase());
 				psInsert.executeUpdate();
 				
-				// Récupération de l'identifiant généré automatiquement par Derby
+				// RÃ©cupÃ©ration de l'identifiant gÃ©nÃ©rÃ© automatiquement par
 				idRS = psInsert.getGeneratedKeys();
 				if (idRS != null && idRS.next()) {
 					idFound = idRS.getInt(1);

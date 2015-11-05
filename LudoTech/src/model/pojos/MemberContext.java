@@ -1,54 +1,62 @@
 package model.pojos;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
- * Classe représentant le contexte actuel au sujet d'un membre, c'est a dire le statut qu'il a par rapport à la ludothèque (s'il est actuellement en retard, s'il a payé sa cotisation...)
- * @author theo.gauchoux
- *
+ * Classe représentant le contexte actuel au sujet d'un membre, c'est a dire le
+ * statut qu'il a par rapport à la ludothèque (s'il est actuellement en retard,
+ * s'il a payé sa cotisation...)
  */
 public class MemberContext {
 
 	/**
-	 * Identifiant unique du contexte d'un membre
+	 * L'identifiant unique du contexte d'un membre
 	 */
 	private int id;
-	
+
 	/**
 	 * Le nombre de retards pour le retour de prêts
 	 */
 	private int nbDelays;
-	
+
 	/**
 	 * Le nombre de réservations annulées
 	 */
 	private int nbFakeBookings;
-	
+
 	/**
 	 * La date de la dernière cotisation
 	 */
 	private Date lastSubscriptionDate;
-	
+
 	/**
 	 * A le droit d'emprunter des jeux
 	 */
 	private boolean canBorrow;
-	
+
 	/**
 	 * A le droit de réserver des jeux
 	 */
 	private boolean canBook;
 
 	/**
-	 * Constructeur de contexte d'un membre en fournissant un identifiant
-	 * @param id Identifiant unique du contexte d'un membre
-	 * @param nbDelays Le nombre de retards pour le retour de prêts
-	 * @param nbFakeBookings Le nombre de réservations annulées
-	 * @param lastSubscriptionDate La date de la dernière cotisation
-	 * @param canBorrow A le droit d'emprunter des jeux
-	 * @param canBook A le droit de réserver des jeux
+	 * Constructeur du contexte d'un membre en fournissant un identifiant
+	 * 
+	 * @param id
+	 *            Identifiant unique du contexte d'un membre
+	 * @param nbDelays
+	 *            Le nombre de retards pour le retour de prêts
+	 * @param nbFakeBookings
+	 *            Le nombre de réservations annulées
+	 * @param lastSubscriptionDate
+	 *            La date de la dernière cotisation
+	 * @param canBorrow
+	 *            A le droit d'emprunter des jeux
+	 * @param canBook
+	 *            A le droit de réserver des jeux
 	 */
-	public MemberContext(int id, int nbDelays, int nbFakeBookings, Date lastSubscriptionDate, boolean canBorrow, boolean canBook) {
+	public MemberContext(int id, int nbDelays, int nbFakeBookings, Date lastSubscriptionDate, boolean canBorrow,
+			boolean canBook) {
 		this.id = id;
 		this.nbDelays = nbDelays;
 		this.nbFakeBookings = nbFakeBookings;
@@ -56,7 +64,30 @@ public class MemberContext {
 		this.canBorrow = canBorrow;
 		this.canBook = canBook;
 	}
-	
+
+	/**
+	 * Constructeur du contexte d'un membre sans fournir d'identifiant
+	 * 
+	 * @param nbDelays
+	 *            Le nombre de retards pour le retour de prêts
+	 * @param nbFakeBookings
+	 *            Le nombre de réservations annulées
+	 * @param lastSubscriptionDate
+	 *            La date de la dernière cotisation
+	 * @param canBorrow
+	 *            A le droit d'emprunter des jeux
+	 * @param canBook
+	 *            A le droit de réserver des jeux
+	 */
+	public MemberContext(int nbDelays, int nbFakeBookings, Date lastSubscriptionDate, boolean canBorrow,
+			boolean canBook) {
+		this.nbDelays = nbDelays;
+		this.nbFakeBookings = nbFakeBookings;
+		this.lastSubscriptionDate = lastSubscriptionDate;
+		this.canBorrow = canBorrow;
+		this.canBook = canBook;
+	}
+
 	/**
 	 * @return Identifiant unique du contexte d'un membre
 	 */
@@ -65,7 +96,8 @@ public class MemberContext {
 	}
 
 	/**
-	 * @param id Identifiant unique du contexte d'un membre
+	 * @param id
+	 *            Identifiant unique du contexte d'un membre
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -79,7 +111,8 @@ public class MemberContext {
 	}
 
 	/**
-	 * @param nbDelays Le nombre de retards pour le retour de prêts
+	 * @param nbDelays
+	 *            Le nombre de retards pour le retour de prêts
 	 */
 	public void setNbDelays(int nbDelays) {
 		this.nbDelays = nbDelays;
@@ -93,7 +126,8 @@ public class MemberContext {
 	}
 
 	/**
-	 * @param nbFakeBookings Le nombre de réservations annulées
+	 * @param nbFakeBookings
+	 *            Le nombre de réservations annulées
 	 */
 	public void setNbFakeBookings(int nbFakeBookings) {
 		this.nbFakeBookings = nbFakeBookings;
@@ -107,7 +141,8 @@ public class MemberContext {
 	}
 
 	/**
-	 * @param lastSubscriptionDate La date de la dernière cotisation
+	 * @param lastSubscriptionDate
+	 *            La date de la dernière cotisation
 	 */
 	public void setLastSubscriptionDate(Date lastSubscriptionDate) {
 		this.lastSubscriptionDate = lastSubscriptionDate;
@@ -121,7 +156,8 @@ public class MemberContext {
 	}
 
 	/**
-	 * @param canBorrow A le droit d'emprunter des jeux
+	 * @param canBorrow
+	 *            A le droit d'emprunter des jeux
 	 */
 	public void setCanBorrow(boolean canBorrow) {
 		this.canBorrow = canBorrow;
@@ -135,10 +171,11 @@ public class MemberContext {
 	}
 
 	/**
-	 * @param canBook A le droit de réserver des jeux
+	 * @param canBook
+	 *            A le droit de réserver des jeux
 	 */
 	public void setCanBook(boolean canBook) {
 		this.canBook = canBook;
 	}
-	
+
 }

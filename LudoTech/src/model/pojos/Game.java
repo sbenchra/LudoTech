@@ -1,10 +1,7 @@
 package model.pojos;
 
 /**
- * Représentation d'un jeu (conforme à la table Game)
- * 
- * @author Théo Gauchoux
- *
+ * ReprÃ©sentation d'un jeu (conforme Ã  la table Game)
  */
 public class Game {
 
@@ -24,32 +21,32 @@ public class Game {
 	private String description;
 
 	/**
-	 * Année d'édition du jeu
+	 * AnnÃ©e d'Ã©dition du jeu
 	 */
 	private int publishingYear;
 	
 	/**
-	 * Age minimum recommandé pour ce jeu
+	 * Age minimum recommandÃ© pour ce jeu
 	 */
 	private int minimumAge;
 
 	/**
-	 * Nombre minimum de joueurs recommandé pour ce jeu
+	 * Nombre minimum de joueurs recommandÃ© pour ce jeu
 	 */
 	private int minimumPlayers;
 	
 	/**
-	 * Nombre maximum de joueurs recommandé pour ce jeu
+	 * Nombre maximum de joueurs recommandÃ© pour ce jeu
 	 */
 	private int maximumPlayers;
 	
 	/**
-	 * La catégorie du jeu
+	 * La catï¿½gorie du jeu
 	 */
 	private String category;
 
 	/**
-	 * L'éditeur du jeu
+	 * L'Ã©diteur du jeu
 	 */
 	private String editor;
 
@@ -58,12 +55,12 @@ public class Game {
 	 * @param gameID L'identifiant du jeu
 	 * @param name Le nom du jeu
 	 * @param description La description du jeu
-	 * @param publishingYear L'année d'édition
-	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param publishingYear L'annÃ©e d'Ã©dition
+	 * @param minimumAge L'age minimum recommandÃ© pour jouer
 	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
 	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
-	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
-	 * @param editor L'éditeur du jeu
+	 * @param category La catÃ©gorie du jeu (jeu de cartes, jeu de dÃ©s)
+	 * @param editor L'Ã©diteur du jeu
 	 */
 	public Game(int gameID, String name, String description, int publishingYear, int minimumAge, int minimumPlayers,
 			int maximumPlayers, String category, String editor) {
@@ -82,12 +79,12 @@ public class Game {
 	 * Construit et retourne un nouveau jeu avec un identifiant inconnu
 	 * @param name Le nom du jeu
 	 * @param description La description du jeu
-	 * @param publishingYear L'année d'édition
-	 * @param minimumAge L'age minimum recommandé pour jouer
+	 * @param publishingYear L'annÃ©e d'Ã©dition
+	 * @param minimumAge L'age minimum recommandÃ© pour jouer
 	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
 	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
-	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
-	 * @param editor L'éditeur du jeu
+	 * @param category La catÃ©gorie du jeu (jeu de cartes, jeu de dÃ©s)
+	 * @param editor L'Ã©diteur du jeu
 	 */
 	public Game(String name, String description, int publishingYear, int minimumAge, int minimumPlayers,
 			int maximumPlayers, String category, String editor) {

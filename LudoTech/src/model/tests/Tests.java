@@ -5,19 +5,17 @@ import org.junit.Assert;
 import model.DAOs.DAO;
 
 /**
- * Classe abstraite permettant de préparer la base de données en vue de tests
- * @author Théo Gauchoux
- *
+ * Classe abstraite permettant de prÃ©parer la base de donnÃ©es en vue de tests
  */
 public abstract class Tests {
 
 	/**
-	 * Le nom du schema à utiliser pour les tests unitaires
+	 * Le nom du schema Ã  utiliser pour les tests unitaires
 	 */
 	private final static String TEST_SCHEMA_NAME = "TEST";
 	
 	/**
-	 * Vérification et initialization de la base de données en début de test
+	 * VÃ©rification et initialisation de la base de donnÃ©es en dÃ©but de test
 	 */
 	public void before() {
 		Assert.assertTrue(DAO.checkDatabaseDriver());

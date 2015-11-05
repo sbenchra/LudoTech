@@ -5,40 +5,37 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Classe abstraite gérant la connection avec la base de données
- * 
- * @author Théo Gauchoux
- *
+ * Classe abstraite gÃ©rant la connection avec la base de donnÃ©es
  */
 public abstract class DAO {
 
 	/**
-	 * Constante définissant le pilote JDBC à utiliser
+	 * Constante dÃ©finissant le pilote JDBC ï¿½ utiliser
 	 */
 	private final static String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
 	/**
-	 * Constante définissant l'URL à utiliser par JDBC pour accéder à la base de
-	 * données
+	 * Constante dÃ©finissant l'URL Ã  utiliser par JDBC pour accÃ©der Ã  la base de
+	 * donnÃ©es
 	 */
 	private final static String CONNECTION_URL = "jdbc:derby:db;create=true";
 
 	/**
-	 * Nom du schéma à utiliser pour toute connection à la base de données
+	 * Nom du schÃ©ma Ã  utiliser pour toute connection Ã  la base de donnÃ©es
 	 */
 	private static String usedSchema = "APP";
 
 	/**
-	 * Représentation de la connection à la base de données. Elle peut-être
-	 * nulle (jamais utilisée) ou ouverte/fermée.
+	 * ReprÃ©sentation de la connection Ã  la base de donnÃ©es. Elle peut-Ãªtre
+	 * nulle (jamais utilisÃ©e) ou ouverte/fermÃ©e.
 	 */
 	protected static Connection connection;
 
 	/**
-	 * Vérifie si le pilote JDBC spécifié existe bien dans l'application
+	 * VÃ©rifie si le pilote JDBC spÃ©cifiÃ© existe bien dans l'application
 	 * 
 	 * @return true le pilote JDBC existe bien
-	 * @return false le pilote JDBC n'a pas été trouvé
+	 * @return false le pilote JDBC n'a pas Ã©tÃ© trouvÃ©
 	 */
 	public static boolean checkDatabaseDriver() {
 		try {
@@ -50,22 +47,22 @@ public abstract class DAO {
 	}
 
 	/**
-	 * Modifie le nom du schema à utiliser dans la base de données
+	 * Modifie le nom du schema Ã  utiliser dans la base de donnÃ©es
 	 * 
 	 * @param schemaToUse
-	 *            Le nouveau nom à utiliser
+	 *            Le nouveau nom Ã  utiliser
 	 */
 	public static void setUsedSchema(String schemaToUse) {
 		usedSchema = schemaToUse;
 	}
 
 	/**
-	 * Connecte l'application à la base de données embarquée et définie quel
-	 * schéma à utiliser pour cette connection
+	 * Connecte l'application ï¿½ la base de donnÃ©es embarquÃ©e et dÃ©finie quel
+	 * schÃ©ma utiliser pour cette connection
 	 * 
 	 * @throws SQLException
-	 *             S'il est impossible d'obtenir une connection à la base de
-	 *             données (souvent dû à une utilisation parallèle)
+	 *             S'il est impossible d'obtenir une connection Ã  la base de
+	 *             donnÃ©es (souvent dÃ» Ã  une utilisation parallÃ¨le)
 	 */
 	protected void connect() throws SQLException {
 		if (connection == null || connection.isClosed()) {
@@ -75,7 +72,7 @@ public abstract class DAO {
 	}
 
 	/**
-	 * Deconnecte l'application de la base de données embarquée
+	 * Deconnecte l'application de la base de donnÃ©es embarquÃ©e
 	 * 
 	 * @throws SQLException
 	 */
