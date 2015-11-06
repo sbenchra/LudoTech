@@ -88,10 +88,22 @@ public class GameServices {
 	 * @return Un objet de type null s'il le jeu a pu être supprimé de la base de
 	 *         données, sinon Game qui était en paramêtre
 	 */
-	public Game removeGame(int id, String name, String description, int publishingYear, int minimumAge, int minimumPlayers, int maximumPlayers, String category, String editor) {
-		Game game = new Game(id, name, description, publishingYear, minimumAge, minimumPlayers, maximumPlayers, category, editor);
-		
+	public Game remove(int id) {
+		Game game = new Game(id);
 		return this.gameDAO.remove(game) ? null : game;
+	}
+	
+	
+	/**
+	 * Trouve un jeu existant
+	 * 
+	 * @param id L'identifiant du jeu
+	 * @return Un objet de type game
+	 */
+	
+	public Game getGame(int id) {
+		Game game = new Game();
+		return this.gameDAO.get(id);
 	}
 
 }

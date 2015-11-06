@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.pojos.Game;
+import model.pojos.MemberContext;
 
 /**
  * Classe manipulant des objets de type Game dans la base de données
@@ -117,16 +118,42 @@ public class GameDAO extends DAO {
 
 	public boolean remove(Game game) {
 		try {
-			PreparedStatement psInsert = connection.prepareStatement("REMOVE FROM " + "Game WHERE " + "id_game = ?");
-			psInsert.setString(1, game.getName());
-			psInsert.execute();
-			psInsert.closeOnCompletion();
+			super.connect();
+			
+			PreparedStatement psDelete = connection.prepareStatement("REMOVE FROM " + "Game WHERE " + "id = ?");
+			psDelete.setInt(1, game.getGameID());
+			psDelete.execute();
+			psDelete.closeOnCompletion();
 
 			super.disconnect();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public Game get(int id_game){
+		Game game = new Game();
+		try{
+			super.connect();
+			
+			PreparedStatement psGet = connection.prepareStatement("SELECT * FROM Game WHERE id = ?");
+			psGet.setInt(1, id_game);
+			psGet.execute();
+			psGet.closeOnCompletion();
+			
+			ResultSet resultSet = psGet.getResultSet();
+			
+			if (resultSet.next()) { // Positionnement sur le premier résultat
+				game = new Game( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), 
+						resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(6), resultSet.getString(8), resultSet.getString(9));
+			}
+			super.disconnect();
+			return game;
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

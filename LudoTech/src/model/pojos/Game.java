@@ -97,6 +97,22 @@ public class Game {
 		this.category = category;
 		this.editor = editor;
 	}
+	
+	public Game() {
+		this.gameID = 0;
+		this.name = "";
+		this.description = "";
+		this.publishingYear = 0;
+		this.minimumAge = 0;
+		this.minimumPlayers = 0;
+		this.maximumPlayers = 0;
+		this.category = "";
+		this.editor = "";
+	}
+
+	public Game(int id) {
+		this.gameID = id;
+	}
 
 	public int getGameID() {
 		return this.gameID;

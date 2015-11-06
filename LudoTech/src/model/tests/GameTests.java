@@ -28,6 +28,19 @@ public class GameTests extends Tests {
 		Assert.assertNotNull(gameServices.addGame("TestAddGame1", "Salut, je suis une description", 2015, 12, 2, 4, "Cartes", "Marco"));
 		Assert.assertNotNull(gameServices.addGame("TestAddGame2", "Coucou, moi j'en suis une autre", 2011, 4, 1, 2, "Plateau", "Marco"));
 	}
+	
+	@Test
+	public void testRemoveGames() {
+		Assert.assertNotNull(gameServices.addGame("TestAddGame1", "Salut, je suis une description", 2015, 12, 2, 4, "Cartes", "Marco"));
+		Assert.assertNotNull(gameServices.remove(1));
+		Assert.assertNull(gameServices.getGame(1));
+	}
+	
+	@Test
+	public void testGetGames() {
+		Game editableGame = gameServices.addGame("TestEditGame1", "Ancienne description", 2015, 8, 2, 6, "Dés", "Machin");
+		Assert.assertNotNull(gameServices.getGame(editableGame.getGameID()));
+	}
 
 	@Test
 	public void testEditGames() {
