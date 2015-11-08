@@ -41,7 +41,7 @@ public class Game {
 	private int maximumPlayers;
 	
 	/**
-	 * La cat�gorie du jeu
+	 * La catégorie du jeu
 	 */
 	private String category;
 

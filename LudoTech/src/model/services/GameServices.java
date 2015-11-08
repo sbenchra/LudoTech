@@ -75,35 +75,30 @@ public class GameServices {
 	
 	/**
 	 * Suppression d'un jeu existant
-	 * 
 	 * @param id L'identifiant du jeu
-	 * @param name Le nom du jeu
-	 * @param description La description du jeu
-	 * @param publishingYear L'année d'édition
-	 * @param minimumAge L'age minimum recommandé pour jouer
-	 * @param minimumPlayers Le nombre minimum de joueurs necessaires
-	 * @param maximumPlayers Le nombre maximum de joueurs necessaires
-	 * @param category La catégorie du jeu (jeu de cartes, jeu de dés)
-	 * @param editor L'éditeur du jeu
-	 * @return Un objet de type null s'il le jeu a pu être supprimé de la base de
-	 *         données, sinon Game qui était en paramêtre
+	 * @return True si le jeu a pu être supprimé de la base de données, sinon False
 	 */
-	public Game remove(int id) {
-		Game game = new Game(id);
-		return this.gameDAO.remove(game) ? null : game;
+	public boolean remove(int id) {
+		return this.gameDAO.remove(id);
 	}
-	
 	
 	/**
 	 * Trouve un jeu existant
-	 * 
-	 * @param id L'identifiant du jeu
-	 * @return Un objet de type game
+	 * @param gameID L'identifiant du jeu
+	 * @return Un objet de type game ou null s'il n'existe pas en base de données
 	 */
-	
-	public Game getGame(int id) {
-		Game game = new Game();
-		return this.gameDAO.get(id);
+	public Game getGame(int gameID) {
+		Game game = this.gameDAO.get(gameID);
+		if (game != null) { // Chargement des données issues d'autres tables avec les clés étrangères
+			int categoryID = this.gameDAO.getCategoryID(gameID);
+			String category = this.gameCategoryDAO.getName(categoryID);
+			game.setCategory(category != null ? category : "");
+			
+			int editorID = this.gameDAO.getEditorID(gameID);
+			String editor = this.gameEditorDAO.getName(editorID);
+			game.setEditor(editor != null ? editor : "");
+		}
+		return game;
 	}
 
 }

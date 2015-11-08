@@ -59,23 +59,6 @@ public class MemberContextTests extends Tests {
 	}
 
 	@Test
-	public void testGetMemberContext() {
-		// Ajout du contexte à obtenir
-		MemberContext obtainableMemberContext = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			obtainableMemberContext = memberContextServices.addMemberContext(0, 0, sdf.parse("11/11/2011"), true, true);
-		} catch (ParseException e) {
-			Assert.fail("La date utilisée pour le test n'a pas pû être parsée correctement par Java");
-			e.printStackTrace();
-		}
-		Assert.assertNotNull(obtainableMemberContext);
-
-		// Obtention du contexte d'un adhérent via son identifiant
-		Assert.assertNotNull(memberContextServices.getMemberContext(obtainableMemberContext.getId()));
-	}
-
-	@Test
 	public void testRemoveMemberContext() {
 		// Ajout du contexte à supprimer
 		MemberContext deletableMemberContext = null;
@@ -92,4 +75,21 @@ public class MemberContextTests extends Tests {
 		Assert.assertTrue(memberContextServices.removeMemberContext(deletableMemberContext.getId()));
 	}
 
+	@Test
+	public void testGetMemberContext() {
+		// Ajout du contexte à obtenir
+		MemberContext obtainableMemberContext = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			obtainableMemberContext = memberContextServices.addMemberContext(0, 0, sdf.parse("11/11/2011"), true, true);
+		} catch (ParseException e) {
+			Assert.fail("La date utilisée pour le test n'a pas pû être parsée correctement par Java");
+			e.printStackTrace();
+		}
+		Assert.assertNotNull(obtainableMemberContext);
+
+		// Obtention du contexte d'un adhérent via son identifiant
+		Assert.assertNotNull(memberContextServices.getMemberContext(obtainableMemberContext.getId()));
+	}
+	
 }

@@ -28,14 +28,8 @@ public class MemberContextDAO extends DAO {
 					+ "VALUES (?, ?, ?, ?, ?)", new String[] { "ID" });
 			psInsert.setInt(1, memberContext.getNbDelays());
 			psInsert.setInt(2, memberContext.getNbFakeBookings());
-			psInsert.setDate(3, new java.sql.Date(memberContext.getLastSubscriptionDate().getTime())); // Conversion
-																										// d'une
-																										// date
-																										// java.util
-																										// vers
-																										// une
-																										// date
-																										// java.sql
+			// Conversion d'une date java.util vers une date java.sql
+			psInsert.setDate(3, new java.sql.Date(memberContext.getLastSubscriptionDate().getTime())); 
 			psInsert.setBoolean(4, memberContext.canBorrow());
 			psInsert.setBoolean(5, memberContext.canBook());
 
@@ -74,20 +68,37 @@ public class MemberContextDAO extends DAO {
 					+ "WHERE id = ?");
 			psEdit.setInt(1, memberContext.getNbDelays());
 			psEdit.setInt(2, memberContext.getNbFakeBookings());
-			psEdit.setDate(3, new java.sql.Date(memberContext.getLastSubscriptionDate().getTime())); // Conversion
-																										// d'une
-																										// date
-																										// java.util
-																										// vers
-																										// une
-																										// date
-																										// java.sql
+			// Conversion d'une date java.util vers une date java.sql
+			psEdit.setDate(3, new java.sql.Date(memberContext.getLastSubscriptionDate().getTime()));
 			psEdit.setBoolean(4, memberContext.canBorrow());
 			psEdit.setBoolean(5, memberContext.canBook());
 			psEdit.setInt(6, memberContext.getId());
 
 			psEdit.executeUpdate();
 			psEdit.closeOnCompletion();
+
+			super.disconnect();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Supprime le contexte d'un adhérent en base de données
+	 * @param id L'identifiant du contexte à supprimer
+	 * @return True si le contexte a bien été supprimé ou s'il n'existe pas en base de données, sinon False
+	 */
+	public boolean remove(int id) {
+		try {
+			super.connect();
+
+			PreparedStatement psRemove = connection
+					.prepareStatement("DELETE FROM " + "MEMBER_CONTEXT WHERE " + "id = ?");
+			psRemove.setInt(1, id);
+			psRemove.execute();
+			psRemove.closeOnCompletion();
 
 			super.disconnect();
 			return true;
@@ -114,37 +125,14 @@ public class MemberContextDAO extends DAO {
 			ResultSet resultSet = psSelect.getResultSet();
 			MemberContext memberContext = null;
 			if (resultSet.next()) { // Positionnement sur le premier résultat
-				memberContext = new MemberContext(id, resultSet.getInt(2), resultSet.getInt(3), resultSet.getDate(4),
-						resultSet.getBoolean(5), resultSet.getBoolean(6));
+				memberContext = new MemberContext(id, resultSet.getInt("nb_delays"), resultSet.getInt("nb_fake_bookings"), resultSet.getDate("last_subscription_date"),
+						resultSet.getBoolean("can_borrow"), resultSet.getBoolean("can_book"));
 			}
 			super.disconnect();
 			return memberContext;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}
-	}
-
-	/**
-	 * Supprime le contexte d'un adhérent en base de données
-	 * @param id L'identifiant du contexte à supprimer
-	 * @return True si le contexte a bien été supprimé ou s'il n'existe pas en base de données, sinon False
-	 */
-	public boolean remove(int id) {
-		try {
-			super.connect();
-
-			PreparedStatement psRemove = connection
-					.prepareStatement("DELETE FROM " + "MEMBER_CONTEXT WHERE " + "id = ?");
-			psRemove.setInt(1, id);
-			psRemove.execute();
-			psRemove.closeOnCompletion();
-
-			super.disconnect();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
 		}
 	}
 

@@ -15,9 +15,7 @@ public class GameEditorDAO extends DAO {
 	 * @return L'identifiant de l'éditeur de jeu 
 	 */
 	public int getID(String gameEditor) {
-		
 		int idFound = -1;
-		
 		try {
 			super.connect();
 
@@ -28,7 +26,7 @@ public class GameEditorDAO extends DAO {
 			
 			ResultSet idRS = psSelect.getResultSet();
 			if (idRS != null && idRS.next()) { // L'identifiant a été trouvé
-				idFound = idRS.getInt(1);
+				idFound = idRS.getInt("id");
 			} else {
 				PreparedStatement psInsert = connection.prepareStatement(
 						"INSERT INTO GAME_EDITOR(name) VALUES (?)", new String[] { "ID" });
@@ -49,5 +47,32 @@ public class GameEditorDAO extends DAO {
 			e.printStackTrace();
 		}
 		return idFound;
+	}
+	
+	/**
+	 * Trouve le nom d'un éditeur de jeu dans la base de données
+	 * @param editorID L'identifiant de l'éditeur à trouver
+	 * @return Le nom de l'éditeur identifié par "id" ou null si aucun ne correspond en base de données
+	 */
+	public String getName(int editorID){
+		try {
+			super.connect();
+
+			PreparedStatement psSelect = connection.prepareStatement("SELECT * FROM GAME_EDITOR WHERE id = ?");
+			psSelect.setInt(1, editorID);
+			psSelect.execute();
+			psSelect.closeOnCompletion();
+
+			ResultSet resultSet = psSelect.getResultSet();
+			String editor = null;
+			if (resultSet.next()) { // Positionnement sur le premier résultat
+				editor = resultSet.getString("name");
+			}
+			super.disconnect();
+			return editor;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

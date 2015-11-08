@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.pojos.Game;
-import model.pojos.MemberContext;
 
 /**
  * Classe manipulant des objets de type Game dans la base de données
@@ -33,7 +32,8 @@ public class GameDAO extends DAO {
 
 			PreparedStatement psInsert = connection.prepareStatement("INSERT INTO "
 					+ "GAME(name, description, publishing_year, minimum_age, minimum_players, maximum_players, category_id, editor_id) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", new String[] { "ID" });
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", new String[] { "ID" }); 
+			// Auto-incrémentation sur la clé primaire ID
 			psInsert.setString(1, game.getName());
 			psInsert.setString(2, game.getDescription());
 			psInsert.setInt(3, game.getPublishingYear());
@@ -108,20 +108,17 @@ public class GameDAO extends DAO {
 	 * Supprime une ligne de la table Game dans la base de données en se servant
 	 * de l'identifiant d'un jeu
 	 * 
-	 * @param game
-	 *            Le jeu à supprimer dans la base de données
-	 *
-	 * @return true La suppression a été faite correctement
-	 * @return false Une exception est survenue, la suppression s'est peut-être
-	 *         mal passée
+	 * @param id
+	 *            L'identifiant du jeu à supprimer
+	 * @return True si le jeu a bien été supprimé ou s'il n'existe pas en base
+	 *         de données, sinon False
 	 */
-
-	public boolean remove(Game game) {
+	public boolean remove(int id) {
 		try {
 			super.connect();
-			
-			PreparedStatement psDelete = connection.prepareStatement("REMOVE FROM " + "Game WHERE " + "id = ?");
-			psDelete.setInt(1, game.getGameID());
+
+			PreparedStatement psDelete = connection.prepareStatement("DELETE FROM Game WHERE id = ?");
+			psDelete.setInt(1, id);
 			psDelete.execute();
 			psDelete.closeOnCompletion();
 
@@ -132,29 +129,97 @@ public class GameDAO extends DAO {
 			return false;
 		}
 	}
-	
-	public Game get(int id_game){
-		Game game = new Game();
-		try{
+
+	/**
+	 * Trouve un jeu dans la base de données
+	 * 
+	 * @param id
+	 *            L'identifiant du jeu à trouver
+	 * @return Le jeu identifié par "id" ou null si aucun ne correspond en base
+	 *         de données
+	 */
+	public Game get(int id) {
+		try {
 			super.connect();
-			
-			PreparedStatement psGet = connection.prepareStatement("SELECT * FROM Game WHERE id = ?");
-			psGet.setInt(1, id_game);
-			psGet.execute();
-			psGet.closeOnCompletion();
-			
-			ResultSet resultSet = psGet.getResultSet();
-			
+
+			PreparedStatement psSelect = connection.prepareStatement("SELECT * FROM GAME WHERE id = ?");
+			psSelect.setInt(1, id);
+			psSelect.execute();
+			psSelect.closeOnCompletion();
+
+			ResultSet resultSet = psSelect.getResultSet();
+			Game game = null;
 			if (resultSet.next()) { // Positionnement sur le premier résultat
-				game = new Game( resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), 
-						resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(6), resultSet.getString(8), resultSet.getString(9));
+				game = new Game(id, resultSet.getString("name"), resultSet.getString("description"),
+						resultSet.getInt("publishing_year"), resultSet.getInt("minimum_age"),
+						resultSet.getInt("minimum_players"), resultSet.getInt("maximum_players"), "", "");
 			}
 			super.disconnect();
 			return game;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * Trouve l'identifiant de la catégorie d'un jeu dans la base de données
+	 * 
+	 * @param id
+	 *            L'identifiant du jeu à utiliser
+	 * @return L'identifiant de la catégorie du jeu dont l'identifiant est passé
+	 *         en paramètres ou -1 si le jeu ne possède pas de categorie
+	 */
+	public int getCategoryID(int gameID) {
+		int categoryID = -1;
+		try {
+			super.connect();
+
+			PreparedStatement psSelect = connection.prepareStatement("SELECT category_id FROM GAME WHERE id = ?");
+			psSelect.setInt(1, gameID);
+			psSelect.execute();
+			psSelect.closeOnCompletion();
+
+			ResultSet resultSet = psSelect.getResultSet();
+			if (resultSet.next()) { // Positionnement sur le premier résultat
+				categoryID = resultSet.getInt("category_id");
+			}
+
+			super.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return categoryID;
+	}
+
+	/**
+	 * Trouve l'identifiant de l'éditeur d'un jeu dans la base de données
+	 * 
+	 * @param id
+	 *            L'identifiant du jeu à utiliser
+	 * @return L'identifiant de l'éditeur du jeu dont l'identifiant est passé en
+	 *         paramètres ou -1 si le jeu ne possède pas d'éditeur
+	 */
+	public int getEditorID(int gameID) {
+		int editorID = -1;
+		try {
+			super.connect();
+
+			PreparedStatement psSelect = connection.prepareStatement("SELECT editor_id FROM GAME WHERE id = ?");
+			psSelect.setInt(1, gameID);
+			psSelect.execute();
+			psSelect.closeOnCompletion();
+
+			ResultSet resultSet = psSelect.getResultSet();
+			if (resultSet.next()) { // Positionnement sur le premier résultat
+				editorID = resultSet.getInt("editor_id");
+			}
+
+			super.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return editorID;
 	}
 
 }
