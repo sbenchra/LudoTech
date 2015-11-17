@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.services.Services;
@@ -52,6 +51,7 @@ public class MainApplication extends Application {
 			FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/view/MainView.fxml"));
 			this.mainView = (BorderPane) loader.load();
 			Scene scene = new Scene(mainView);
+			scene.getStylesheets().add("ressources/css/modena.css");
 			mainStage.setScene(scene);
 			mainStage.show();
 		} catch (IOException e) {
@@ -67,9 +67,10 @@ public class MainApplication extends Application {
 	    try {
 	    	FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/view/catalog/GameListView.fxml"));
 			
-			AnchorPane overviewPage = (AnchorPane) loader.load();
+			BorderPane gameListPage = (BorderPane) loader.load();
 			TabPane tabPane = (TabPane) mainView.getCenter();
-			tabPane.getTabs().get(1).setContent(overviewPage);
+			tabPane.getTabs().get(1).setContent(gameListPage);
+			
 			GameListController controller = loader.getController();
 			
 			controller.setServices(this.services);
