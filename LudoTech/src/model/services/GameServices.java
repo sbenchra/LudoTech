@@ -1,5 +1,8 @@
 package model.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.DAOs.GameCategoryDAO;
 import model.DAOs.GameDAO;
 import model.DAOs.GameEditorDAO;
@@ -99,6 +102,19 @@ public class GameServices {
 			game.setEditor(editor != null ? editor : "");
 		}
 		return game;
+	}
+
+	/**
+	 * Obtention de la liste des jeux
+	 * @return La liste des jeux
+	 */
+	public List<Game> getGameList() {
+		List<Game> gameList = new ArrayList<Game>();
+		List<Integer> gameIDs = this.gameDAO.getIDs();
+		for (Integer id : gameIDs) {
+			gameList.add(this.getGame(id));
+		}
+		return gameList;
 	}
 
 }

@@ -22,11 +22,7 @@
           </Tab>
           <Tab text="Catalogue">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextArea layoutX="167.0" layoutY="117.0" prefHeight="237.0" prefWidth="366.0" text="Pour un adhérent :&#10;Consulter et rechercher dans la liste des jeux&#10;Réserver un exemplaire pour une certaine date&#10;&#10;Pour un admin :&#10;Gérer les jeux et exemplaires (ajout, modif, suppression) et&#10;voir la liste bien entendu. Peut réserver également pour lui même.&#10;" />
-                     </children>
-                  </AnchorPane>
+                <fx:include source="catalog/GameListView.fxml"/>
             </content>
           </Tab>
             <Tab text="Emprunt">

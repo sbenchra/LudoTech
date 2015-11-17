@@ -3,6 +3,8 @@ package model.DAOs;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.pojos.Game;
 
@@ -220,6 +222,32 @@ public class GameDAO extends DAO {
 			e.printStackTrace();
 		}
 		return editorID;
+	}
+
+	/**
+	 * Liste les identifiants de tous les jeux de la base de données
+	 * 
+	 * @return La liste des identifiants de tous les jeux
+	 */
+	public List<Integer> getIDs() {
+		List<Integer> ids = new ArrayList<Integer>();
+		try {
+			super.connect();
+
+			PreparedStatement psSelect = connection.prepareStatement("SELECT * FROM GAME");
+			psSelect.execute();
+			psSelect.closeOnCompletion();
+
+			ResultSet resultSet = psSelect.getResultSet();
+			while (resultSet.next()) { // Positionnement sur le premier résultat
+				ids.add(resultSet.getInt("id"));
+			}
+			
+			super.disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ids;
 	}
 
 }

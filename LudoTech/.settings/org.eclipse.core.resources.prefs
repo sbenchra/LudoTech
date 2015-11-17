@@ -1,6 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/launcher=UTF-8
-encoding//src/launcher/LudoTech.java=UTF-8
 encoding//src/model/DAOs=UTF-8
 encoding//src/model/DAOs/DAO.java=UTF-8
 encoding//src/model/DAOs/GameCategoryDAO.java=UTF-8

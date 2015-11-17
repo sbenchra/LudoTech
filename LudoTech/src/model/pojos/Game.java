@@ -117,7 +117,7 @@ public class Game {
 	public int getGameID() {
 		return this.gameID;
 	}
-
+	
 	public void setGameID(int gameID) {
 		this.gameID = gameID;
 	}
@@ -185,5 +185,5 @@ public class Game {
 	public void setEditor(String editor) {
 		this.editor = editor;
 	}
-
+	
 }
