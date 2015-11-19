@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.services.Services;
-import model.services.ServicesInterface;
 
 /**
  * Classe principale de l'application faisant office de lanceur et gérant l'interface graphique
@@ -26,15 +24,6 @@ public class MainApplication extends Application {
 	 * Vue principale regroupant tous les éléments graphiques (onglets et leur contenu compris)
 	 */
 	private BorderPane mainView;
-	
-	/**
-	 * Interface d'accès aux traitements métiers de l'application
-	 */
-	private ServicesInterface services;
-	
-    public MainApplication() {
-    	this.services = new Services();
-    }
     
     /**
      * Lanceur de l'application
@@ -73,15 +62,9 @@ public class MainApplication extends Application {
 			
 			GameListController controller = loader.getController();
 			
-			controller.setServices(this.services);
 			controller.loadData();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public ServicesInterface getServices() {
-		return this.services;
-	}
-
 }

@@ -8,7 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.pojos.Game;
-import model.services.ServicesInterface;
+import model.services.GameServices;
 
 /**
  * Controleur de la vue listant les jeux enregistrés en base de données
@@ -60,7 +60,11 @@ public class GameListController {
 	/**
 	 * Services permettant l'accès aux traitements métiers de l'application
 	 */
-	private ServicesInterface services;
+	private GameServices gameServices;
+	
+	public GameListController() {
+		this.gameServices = new GameServices();
+	}
 
 	/**
 	 * Initialisation de la correspondance entre les colonnes JavaFX et les propriétés de la classe observant des jeux (ObservableGame)
@@ -80,14 +84,10 @@ public class GameListController {
 	 */
 	public void loadData() {
 		ObservableList<ObservableGame> gameData = FXCollections.observableArrayList();
-		for (Game game : this.services.getGameList()) {
+		for (Game game : this.gameServices.getGameList()) {
 			gameData.add(new ObservableGame(game));
 		}
 		this.gameTable.setItems(gameData);
-	}
-
-	public void setServices(ServicesInterface services) {
-		this.services = services;
 	}
 	
 }
