@@ -89,7 +89,7 @@ public class Member {
 	}
 
 	public Member(String lastName, String firstName, String pseudo, Date birthDate, int phoneNumber, String email,
-			MemberContextID memberContext, MemberCredentials memberCredentialsID, PostalAddress postalAddress) {
+			MemberContext memberContext, MemberCredentials memberCredentialsID, PostalAddress postalAddress) {
 		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -103,7 +103,7 @@ public class Member {
 	}
 
 	public Member(int memberID, String lastName, String firstName, String pseudo, Date birthDate, int phoneNumber,
-			String email, MemberContextID memberContext, MemberCredentials memberCredentialsID, PostalAddress postalAddress) {
+			String email, MemberContext memberContext, MemberCredentials memberCredentialsID, PostalAddress postalAddress) {
 		super();
 		this.memberID = memberID;
 		this.lastName = lastName;
